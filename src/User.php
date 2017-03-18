@@ -17,6 +17,14 @@ class User
         $this->password = '';
     }
 
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
 
 
 }
