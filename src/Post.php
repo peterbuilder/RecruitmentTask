@@ -5,6 +5,11 @@ class Post
 {
     static public function addPost(Connection $connection, $description, $title, $userId)
     {
+        if(strlen($title) > 100 || strlen($description) > 255) {
+            throw new Exception("Title or description is too long 
+                                (title max 100 characters, description max 255 characters)");
+        }
+
         $date = date('Y-m-d H:i:s');
 
         $sql = sprintf("INSERT INTO posts (user_id, title, description, date)
@@ -39,6 +44,20 @@ class Post
 
         if($result == true) {
             return $result;
+        } else {
+            return false;
+        }
+    }
+
+    static public function isPostExist(Connection $connection, $id)
+    {
+        $sql = sprintf("SELECT id
+                FROM posts
+                WHERE id=%s", $id);
+        $result = $connection->query($sql);
+
+        if($result->num_rows) {
+            return true;
         } else {
             return false;
         }
