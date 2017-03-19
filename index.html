@@ -39,9 +39,18 @@
     <br>
     <label>Add post
         <form action="addPost.php" method="get">
-            <input type="text" name="title" placeholder="Title"><br>
-            <input type="text" name="description" placeholder="Desciption"><br>
+            <input type="text" name="title" placeholder="Title" maxlength="100"><br>
+            <input type="text" name="description" placeholder="Desciption" maxlength="255"><br>
             <input type="submit" value="Add">
+        </form>
+    </label>
+    <br>
+    <label>
+        Add comment
+        <form action="addComment.php" method="post">
+            <input type="text" name="comment" placeholder="Comment" maxlength="255"><br>
+            <input type="number" name="postId" placeholder="PostID"><br>
+            <input type="submit" value="Add"><br>
         </form>
     </label>
 </body>
