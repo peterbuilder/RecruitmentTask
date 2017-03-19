@@ -5,5 +5,5 @@ if(isset($_SESSION['logged'])) {
     unset($_SESSION['logged']);
     echo 'Bye, bye :)';
 } else {
-    echo 'You are not sign in. ';
+    echo 'You are not signed in. ';
 }
