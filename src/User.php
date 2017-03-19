@@ -18,13 +18,32 @@ class User
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getPassword()
+    public function getId()
     {
-        return $this->password;
+        return $this->id;
     }
 
+    public function getUser(Connection $connection, $email)
+    {
+        $sql = sprintf("SELECT *
+                        FROM users
+                        WHERE email='%s'", $email);
+        $result = $connection->query($sql);
+        $result = $result->fetch_assoc();
 
+        if($result == 0) {
+            throw new Exception("Can't get user data");
+        }
+
+        $user = new User();
+        $user->id = $result['id'];
+        $user->name = $result['name'];
+        $user->surname = $result['surname'];
+        $user->email = $result['email'];
+
+        return $user;
+    }
 
 }
