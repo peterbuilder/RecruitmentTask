@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Witaj</title>
 </head>
+<body>
     <label> Sign In
         <form action="signIn.php" method="post">
             <input type="text" name="email" placeholder="email"><br>
@@ -26,6 +27,21 @@
         Sign Out
         <form action="signOut.php">
             <input type="submit" value="Sign Out">
+        </form>
+    </label>
+    <br>
+    <label>
+        Show post<br>
+        <form>
+            <button formaction="showPost.php" type="submit">Show</button><br>
+        </form>
+    </label>
+    <br>
+    <label>Add post
+        <form action="addPost.php" method="get">
+            <input type="text" name="title" placeholder="Title"><br>
+            <input type="text" name="description" placeholder="Desciption"><br>
+            <input type="submit" value="Add">
         </form>
     </label>
 </body>
