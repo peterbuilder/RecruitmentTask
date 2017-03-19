@@ -21,7 +21,7 @@ try {
     $connection = new Connection();
     $user = new User();
 
-    $user->getUser($connection, $email);
+    $user = $user->getUser($connection, $email);
     if(Post::addPost($connection, $description, $title, $user->getId())) {
         echo 'Post added. ';
     } else {
