@@ -42,6 +42,11 @@ class Authorization
         $hashedPassword = $result['password'];
 
         if(password_verify($password, $hashedPassword)) {
+            if(isset($_SESSION['logged'])) {
+                throw new Exception('You are already logged');
+            }
+            $_SESSION['logged'] = $email;
+
             return true;
         } else {
             return false;
