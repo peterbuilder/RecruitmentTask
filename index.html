@@ -7,7 +7,7 @@
 <body>
     <label> Sign In
         <form action="signIn.php" method="post">
-            <input type="text" name="email" placeholder="email"><br>
+            <input type="email" name="email" placeholder="email"><br>
             <input type="password" name="password" placeholder="password"><br>
             <input type="submit" value="Sign In!"><br>
         </form>
@@ -17,7 +17,7 @@
         <form action="signUp.php" method="post">
             <input type="text" name="name" placeholder="name"><br>
             <input type="text" name="surname" placeholder="surname"><br>
-            <input type="text" name="email" placeholder="e-mail"><br>
+            <input type="email" name="email" placeholder="e-mail"><br>
             <input type="password" name="password" placeholder="password"><br>
             <input type="submit" value="Sign Up!"><br>
         </form>
@@ -32,8 +32,11 @@
     <br>
     <label>
         Show post<br>
-        <form>
-            <button formaction="showPost.php" type="submit">Show</button><br>
+        <form action="showPost.php" method="get">
+            <label><input type="radio" name="showPost[]" value="all" checked="checked"> All posts</label>
+            <label><input type="radio" name="showPost[]" value="one"> One post with comment</label>
+            <input type="number" name="postId" placeholder="Post number">
+            <input type="submit" value="Show"><br>
         </form>
     </label>
     <br>
