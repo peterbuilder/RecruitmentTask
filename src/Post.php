@@ -29,8 +29,7 @@ class Post
                         FROM posts AS p
                         JOIN users AS u
                         ON p.user_id = u.id
-                        ORDER BY p.date
-                        DESC";
+                        ORDER BY p.date DESC";
         $result = $connection->query($sql);
         if($result->num_rows == 0) {
             throw new Exception("No posts. ");
@@ -42,13 +41,7 @@ class Post
         }
 
         $result = serialize($rows);
-        $result = json_encode($result);
-
-        if($result == true) {
-            return $result;
-        } else {
-            return false;
-        }
+        return $result = json_encode($result);
     }
 
     static public function isPostExist(Connection $connection, $id)
