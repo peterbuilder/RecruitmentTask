@@ -25,7 +25,7 @@ class Post
 
     static public function showAllPostsDESC(Connection $connection)
     {
-        $sql = "SELECT p.title, p.description, u.name, u.surname, p.date
+        $sql = "SELECT p.id, p.title, p.description, u.name, u.surname, p.date
                         FROM posts AS p
                         JOIN users AS u
                         ON p.user_id = u.id
@@ -33,11 +33,10 @@ class Post
                         DESC";
         $result = $connection->query($sql);
 
-        while($row = $result->fetch_array())
+        while($row = $result->fetch_assoc())
         {
             $rows[] = $row;
         }
-
 
         $result = serialize($rows);
         $result = json_encode($result);
@@ -61,5 +60,53 @@ class Post
         } else {
             return false;
         }
+    }
+
+    static public function showPostWithComments(Connection $connection, $postId)
+    {
+
+        //Get post
+        $sql = sprintf("SELECT p.title, p.description, u.name, u.surname, p.date
+                        FROM posts AS p
+                        JOIN users AS u
+                        ON p.user_id = u.id
+                        WHERE p.id = %s", $postId);
+        $result = $connection->query($sql);
+        $post = $result->fetch_assoc();
+
+        //Get comments
+        $sql = sprintf("SELECT u.name, u.surname, c.comment, c.date 
+                        FROM comments AS c 
+                        LEFT JOIN users AS u 
+                        ON c.user_id = u.id 
+                        WHERE c.post_id = %s", $postId);
+        $result = $connection->query($sql);
+
+        while($row = $result->fetch_assoc()) {
+            $comments[] = $row;
+        }
+
+        $postAndComments = [
+            'post' => $post,
+            'comments' => $comments
+        ];
+
+        $postAndComments = serialize($postAndComments);
+        $postAndComments = json_encode($postAndComments);
+
+        return $postAndComments;
+    }
+
+    //Delete post with comments
+    static public function deletePost(Connection $connection, $postId)
+    {
+        $sql = sprintf("DELETE FROM comments
+                        WHERE post_id=%s", $postId);
+        $connection->query($sql);
+        $sql = sprintf("DELETE FROM posts
+                        WHERE id=%s", $postId);
+        $connection->query($sql);
+
+        return true;
     }
 }
