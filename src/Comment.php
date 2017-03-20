@@ -10,7 +10,7 @@ class Comment
         }
 
         if(!Post::isPostExist($connection, $postId)) {
-            throw new Exception("Post number $postId does not exist. ");
+            throw new Exception("Post number $postId is not exist. ");
         }
 
         $date = date('Y-m-d H:i:s');
