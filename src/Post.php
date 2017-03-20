@@ -32,6 +32,9 @@ class Post
                         ORDER BY p.date
                         DESC";
         $result = $connection->query($sql);
+        if($result->num_rows == 0) {
+            throw new Exception("No posts. ");
+        }
 
         while($row = $result->fetch_assoc())
         {
